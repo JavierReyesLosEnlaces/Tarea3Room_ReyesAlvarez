@@ -6,7 +6,8 @@ plugins {
 
 android {
     namespace = "com.example.tarea3room_javierreyes"
-    compileSdk = 33
+    //compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.tarea3room_javierreyes"
@@ -34,7 +35,15 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures{
+        viewBinding = true   //Además, hay que darle a sincronizar
+    }
+    buildToolsVersion = "33.0.1"
+
+
+
 }
+
 
 dependencies {
 
@@ -49,11 +58,19 @@ dependencies {
     // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
     //Corrutinas
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
-    // Picasso
+
+    //Picasso
+    implementation ("com.squareup.picasso:picasso:2.8")
 
     // Room
+    implementation ("androidx.room:room-ktx:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
 
+}
+kapt {   // Nuevo objeto creado bajo "dependencies"
+    correctErrorTypes = true  // Allow references to generated code
 }
 
