@@ -30,7 +30,7 @@ class DetailSuperheroActivity : AppCompatActivity() {
     private fun getSuperheroInformation(id: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val superheroDetail =
-                getRetrofit().create(ApiService::class.java).getSuperheroDetail(id)
+                getRetrofit().create(ApiService::class.java).getSuperheroDetail()
             if(superheroDetail.body() != null){
                 runOnUiThread { createUI(superheroDetail.body()!!) }
             }

@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
         fillDatabase()
     }
 
-    fun SuperheroItemResponse.toDatabase() = DetailEntity(name = name, image = superheroImage.url)
     private fun fillDatabase() {
         TODO("Not yet implemented")
         // El código de searchByName, meterlo aquí
