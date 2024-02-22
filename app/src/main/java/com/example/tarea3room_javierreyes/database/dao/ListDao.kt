@@ -11,9 +11,9 @@ interface ListDao {
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(lista: List<ListEntity>)
 
-    @Query ("DELETE FROM superlist")
-    suspend fun delete(listEnt: ListEntity )
+    @Query ("DELETE FROM SuperheroList")
+    suspend fun deleteAll()
 
-    @Query("SELECT * FROM superlist where name LIKE :name")
+    @Query("SELECT * FROM SuperheroList where name LIKE :name")
     suspend fun getAll(name: String?): List<ListEntity>
 }

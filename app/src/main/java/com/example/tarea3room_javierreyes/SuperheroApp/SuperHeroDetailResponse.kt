@@ -2,6 +2,9 @@ package com.example.tarea3room_javierreyes.SuperheroApp
 
 import com.google.gson.annotations.SerializedName
 
+data class SuperheroDetailList (
+    @SerializedName("results") val results: List<SuperHeroDetailResponse>
+)
 data class SuperHeroDetailResponse(
     @SerializedName("name") val name: String,
     @SerializedName("powerstats") val powerstats: PowerStatsResponse,

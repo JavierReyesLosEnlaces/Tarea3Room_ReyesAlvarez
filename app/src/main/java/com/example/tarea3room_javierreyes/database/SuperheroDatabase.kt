@@ -12,3 +12,5 @@ abstract class SuperheroDatabase : RoomDatabase (){
     abstract fun detailDao(): DetailDao
     abstract fun listDao(): ListDao
 }
+
+

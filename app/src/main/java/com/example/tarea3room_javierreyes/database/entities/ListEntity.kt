@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.tarea3room_javierreyes.SuperheroApp.SuperheroItemResponse
 
-@Entity(tableName = "superlist")
+@Entity(tableName = "SuperheroList")
 data class ListEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int = 0,
