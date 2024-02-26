@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+import com.example.tarea3room_javierreyes.database.SuperheroDatabase
+import com.example.tarea3room_javierreyes.database.entities.ListEntity
+import com.example.tarea3room_javierreyes.database.entities.toDatabase
 import com.example.tarea3room_javierreyes.databinding.ActivitySuperheroListBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,16 +27,17 @@ class SuperheroListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySuperheroListBinding
     private lateinit var retrofit: Retrofit
-
+    private lateinit var room: SuperheroDatabase
     private lateinit var adapter: SuperheroAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySuperheroListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        room = Room.databaseBuilder(this, SuperheroDatabase::class.java, "superheroes").build()
         retrofit = getRetrofit()
         initUI()
+        llenarDB()
     }
 
     private fun initUI() {
@@ -51,22 +56,60 @@ class SuperheroListActivity : AppCompatActivity() {
         binding.rvSuperhero.adapter = adapter
     }
 
+    private fun llenarDB() {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val ListResponse: Response<SuperHeroDataResponse> = retrofit.create(ApiService::class.java).getSuperheroes()
+            val DetailResponse : Response<SuperHeroDetailResponse> =  retrofit.create(ApiService::class.java).getSuperheroDetail()
+
+            // 1. LIST RESPONSE
+            if (ListResponse.isSuccessful) {
+                val response: SuperHeroDataResponse? = ListResponse.body()
+                if (response != null ) {
+
+                    // Primero eliminamos todos los datos de list response
+                    room.listDao().deleteAll()
+
+                    // Después insertamos todos los datos
+                    room.listDao().insertAll(response.results.map { it.toDatabase()})
+                    Log.i("insertado", "success")
+                } else {
+                    Log.i("Resultado", "No se encuentran resultados")
+                }
+            } else {
+                Log.i("Consulta", "No funciona :(")
+            }
+            // 1. DETAIL RESPONSE
+            if (DetailResponse.isSuccessful) {
+                val response: SuperHeroDetailResponse? = DetailResponse.body()
+                if (response != null ) {
+
+                    // Primero eliminamos todos los datos de list response
+                    room.detailDao().deleteAllSuperheroDetails()
+
+                    // Después insertamos todos los datos
+                    room.detailDao().insertAllSuperheroDetails(response.results.map { it.toDatabase() })
+                    Log.i("insertado", "success")
+                } else {
+                    Log.i("Resultado", "No se encuentran resultados")
+                }
+            } else {
+                Log.i("Consulta", "No funciona :(")
+            }
+        }
+    }
+
     private fun searchByName(query: String) {
         binding.progressBar.isVisible = true
         CoroutineScope(Dispatchers.IO).launch {
-            val myResponse: Response<SuperHeroDataResponse> = retrofit.create(ApiService::class.java).getSuperheroes()
+            val myResponse: List<ListEntity> = room.listDao().getAll(query)
 
-            if (myResponse.isSuccessful) {
+            if (myResponse!= null) {
                 Log.i("Consulta", "Funciona :)")
-                val response: SuperHeroDataResponse? = myResponse.body()
-                if (response != null) {
-                    Log.i("Cuerpo de la consulta", response.toString())
-                    runOnUiThread {
-                        adapter.updateList(response.superheroes)
-                        binding.progressBar.isVisible = false
-                    }
+                runOnUiThread {
+                    adapter.updateList(myResponse)
+                    binding.progressBar.isVisible = false
                 }
-
             } else {
                 Log.i("Consulta", "No funciona :(")
             }

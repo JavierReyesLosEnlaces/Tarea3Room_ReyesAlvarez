@@ -2,25 +2,27 @@ package com.example.tarea3room_javierreyes.SuperheroApp
 
 import com.google.gson.annotations.SerializedName
 
-data class SuperheroDetailList (
-    @SerializedName("results") val results: List<SuperHeroDetailResponse>
-)
 data class SuperHeroDetailResponse(
+    @SerializedName("results") val results: List<DetailedIdResponse>,
+)
+
+data class  DetailedIdResponse(
     @SerializedName("name") val name: String,
-    @SerializedName("powerstats") val powerstats: PowerStatsResponse,
+    @SerializedName("results") val results: Results,
     @SerializedName("image") val image: SuperheroImageDetailResponse,
     @SerializedName("biography") val biography:Biography,
     @SerializedName("appearance") val appearance:Appearance
 )
 
-data class PowerStatsResponse(
+data class Results(
     @SerializedName("intelligence") val intelligence: String,
     @SerializedName("strength") val strength: String,
     @SerializedName("speed") val speed: String,
     @SerializedName("durability") val durability: String,
     @SerializedName("power") val power: String,
-    @SerializedName("combat") val combat: String
+    @SerializedName("combat") val combat: String,
 )
+
 
 data class SuperheroImageDetailResponse(@SerializedName("url") val url:String)
 

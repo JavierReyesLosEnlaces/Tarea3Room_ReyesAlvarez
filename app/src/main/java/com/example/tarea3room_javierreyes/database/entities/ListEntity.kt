@@ -3,6 +3,7 @@ package com.example.tarea3room_javierreyes.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.tarea3room_javierreyes.SuperheroApp.SuperHeroDataResponse
 import com.example.tarea3room_javierreyes.SuperheroApp.SuperheroItemResponse
 
 @Entity(tableName = "SuperheroList")

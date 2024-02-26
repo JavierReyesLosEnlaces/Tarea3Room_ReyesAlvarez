@@ -8,5 +8,5 @@ interface ApiService {
     suspend fun getSuperheroes(): Response<SuperHeroDataResponse>
 
     @GET("/api/10229233666327556/search/sp")
-    suspend fun getSuperheroDetail(): Response<SuperheroDetailList>
+    suspend fun getSuperheroDetail(): Response<SuperHeroDetailResponse>
 }

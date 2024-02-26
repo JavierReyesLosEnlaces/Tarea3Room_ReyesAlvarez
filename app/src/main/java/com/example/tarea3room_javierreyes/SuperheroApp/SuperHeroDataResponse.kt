@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SuperHeroDataResponse(
     @SerializedName("response") val response: String,
-    @SerializedName("results") val superheroes: List<SuperheroItemResponse>
+    @SerializedName("results") val results: List<SuperheroItemResponse>
 )
 data class SuperheroItemResponse(
     @SerializedName("id") val superheroId: String,

@@ -8,12 +8,13 @@ import com.example.tarea3room_javierreyes.database.entities.DetailEntity
 
 @Dao
 interface DetailDao {
+    @Query("SELECT * FROM SuperheroDetails where id LIKE :name")
+    suspend fun selectAllSuperheroDetails(name: Int?): DetailEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(lista: List<DetailEntity>)
+    suspend fun insertAllSuperheroDetails(lista: List<DetailEntity>)
 
     @Query("DELETE FROM SuperheroDetails")
-    suspend fun deleteAll()
+    suspend fun deleteAllSuperheroDetails()
 
-    @Query("SELECT * FROM SuperheroDetails where `fullName ` LIKE :name")
-    suspend fun getAll(name: String?): List<DetailEntity>
 }

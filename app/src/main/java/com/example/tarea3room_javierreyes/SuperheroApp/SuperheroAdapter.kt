@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tarea3room_javierreyes.R
+import com.example.tarea3room_javierreyes.database.entities.ListEntity
 
-class SuperheroAdapter( var superheroList: List<SuperheroItemResponse> = emptyList(), private val navigateToDetailActivity: (String) -> Unit) : RecyclerView.Adapter<SuperheroViewHolder>() {
+class SuperheroAdapter( var superheroList: List<ListEntity> = emptyList(), private val navigateToDetailActivity: (String) -> Unit) : RecyclerView.Adapter<SuperheroViewHolder>() {
 
-    fun updateList(list: List<SuperheroItemResponse>) {
+    fun updateList(list: List<ListEntity>) {
         superheroList = list
         notifyDataSetChanged()
     }
