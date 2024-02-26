@@ -23,12 +23,12 @@ data class DetailEntity(
 )
 fun DetailedIdResponse.toDatabase() = DetailEntity(
     name = name,
-    intelligence = results.intelligence,
-    strength = results.strength,
-    speed = results.speed,
-    durability = results.durability,
-    power = results.power,
-    combat = results.combat,
+    strength = powerstats.strength,
+    intelligence = powerstats.intelligence,
+    speed = powerstats.speed,
+    durability = powerstats.durability,
+    power = powerstats.power,
+    combat = powerstats.combat,
     fullName = biography.fullName,
     publisher = biography.publisher,
     image = image.url

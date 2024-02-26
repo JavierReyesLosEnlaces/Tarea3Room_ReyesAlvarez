@@ -3,18 +3,18 @@ package com.example.tarea3room_javierreyes.SuperheroApp
 import com.google.gson.annotations.SerializedName
 
 data class SuperHeroDetailResponse(
-    @SerializedName("results") val results: List<DetailedIdResponse>,
+    @SerializedName("results") val resultados: List<DetailedIdResponse>,
 )
 
 data class  DetailedIdResponse(
     @SerializedName("name") val name: String,
-    @SerializedName("results") val results: Results,
+    @SerializedName("powerstats") val powerstats: Powerstats,
     @SerializedName("image") val image: SuperheroImageDetailResponse,
     @SerializedName("biography") val biography:Biography,
     @SerializedName("appearance") val appearance:Appearance
 )
 
-data class Results(
+data class Powerstats(
     @SerializedName("intelligence") val intelligence: String,
     @SerializedName("strength") val strength: String,
     @SerializedName("speed") val speed: String,

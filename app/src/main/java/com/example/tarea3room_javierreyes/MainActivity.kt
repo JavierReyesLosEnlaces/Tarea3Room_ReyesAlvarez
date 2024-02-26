@@ -41,9 +41,26 @@ class MainActivity : AppCompatActivity() {
         retrofit = getRetrofit()
         setContentView(R.layout.activity_main)
         room = Room.databaseBuilder(this, SuperheroDatabase::class.java, "superheroes").build()
-        initUI()
         llenarDB()
+        initUI()
     }
+
+/*
+    private fun initUI() {
+        binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // Añadimos el orEmpty para que si está nulo no haga nada
+                searchByName(query.orEmpty())
+                return false
+            }
+            override fun onQueryTextChange(newText: String?) = false
+        })
+        adapter = MovieAdapter()
+        binding.rvMovies.setHasFixedSize(true)
+        binding.rvMovies.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvMovies.adapter = adapter
+    }
+ */
 
 
     private fun initUI() {
@@ -57,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         })
         adapter = SuperheroAdapter { superheroId ->  navigateToDetail(superheroId) }
         binding.rvSuperhero.setHasFixedSize(true)
-        binding.rvSuperhero.layoutManager = LinearLayoutManager(this)
+        binding.rvSuperhero.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvSuperhero.adapter = adapter
     }
 
@@ -93,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                     room.detailDao().deleteAllSuperheroDetails()
 
                     // Después insertamos todos los datos
-                    room.detailDao().insertAllSuperheroDetails(response.results.map { it.toDatabase() })
+                    room.detailDao().insertAllSuperheroDetails(response.resultados.map { it.toDatabase() })
                     Log.i("insertado", "success")
                 } else {
                     Log.i("Resultado", "No se encuentran resultados")

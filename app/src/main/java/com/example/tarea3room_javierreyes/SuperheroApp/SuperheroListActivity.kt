@@ -88,7 +88,7 @@ class SuperheroListActivity : AppCompatActivity() {
                     room.detailDao().deleteAllSuperheroDetails()
 
                     // Después insertamos todos los datos
-                    room.detailDao().insertAllSuperheroDetails(response.results.map { it.toDatabase() })
+                    room.detailDao().insertAllSuperheroDetails(response.resultados.map { it.toDatabase() })
                     Log.i("insertado", "success")
                 } else {
                     Log.i("Resultado", "No se encuentran resultados")
