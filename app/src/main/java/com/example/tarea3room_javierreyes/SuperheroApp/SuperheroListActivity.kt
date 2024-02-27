@@ -34,10 +34,10 @@ class SuperheroListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySuperheroListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        room = Room.databaseBuilder(this, SuperheroDatabase::class.java, "superheroes").build()
+        room = Room.databaseBuilder(this, SuperheroDatabase::class.java, "superheroes2").build()
         retrofit = getRetrofit()
-        initUI()
         llenarDB()
+        initUI()
     }
 
     private fun initUI() {
@@ -102,7 +102,7 @@ class SuperheroListActivity : AppCompatActivity() {
     private fun searchByName(query: String) {
         binding.progressBar.isVisible = true
         CoroutineScope(Dispatchers.IO).launch {
-            val myResponse: List<ListEntity> = room.listDao().getAll(query)
+            val myResponse: List<ListEntity> = room.listDao().getAll("%$query%")
 
             if (myResponse!= null) {
                 Log.i("Consulta", "Funciona :)")

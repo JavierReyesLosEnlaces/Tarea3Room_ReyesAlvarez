@@ -1,11 +1,10 @@
 package com.example.tarea3room_javierreyes.SuperheroApp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
-import com.example.tarea3room_javierreyes.R
 import com.example.tarea3room_javierreyes.SuperheroApp.SuperheroListActivity.Companion.EXTRA_ID
 import com.example.tarea3room_javierreyes.database.SuperheroDatabase
 import com.example.tarea3room_javierreyes.database.entities.DetailEntity
@@ -27,7 +26,7 @@ class DetailSuperheroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailSuperheroBinding.inflate(layoutInflater)
-        room = Room.databaseBuilder(this, SuperheroDatabase::class.java, "superheroes").build()
+        room = Room.databaseBuilder(this, SuperheroDatabase::class.java, "superheroes2").build()
         setContentView(binding.root)
 
         val id: String = intent.getStringExtra(EXTRA_ID).orEmpty()
@@ -36,9 +35,8 @@ class DetailSuperheroActivity : AppCompatActivity() {
 
     private fun getSuperheroInformation(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            val superheroDetail =
-              room.detailDao().selectAllSuperheroDetails(id)
-              runOnUiThread { createUI(superheroDetail) }
+            val superheroDetail = room.detailDao().selectAllSuperheroDetails(id)
+            runOnUiThread { createUI(superheroDetail) }
         }
     }
 
